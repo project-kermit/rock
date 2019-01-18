@@ -34,12 +34,16 @@ useradd \
 # termite-terminfo: required to make termite work properly when ssh'ing
 # wget: access to terraform software
 
+pacman --noconfirm -Sy archlinux-keyring
+
 pacman --noconfirm -Syu \
     aws-cli \
     git \
     termite-terminfo \
     unzip \
-    wget
+    wget \
+
+pacman --noconfirm -Syu
 
 # -----------------------------------------------------------------------------
 # Private repo
