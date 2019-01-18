@@ -23,6 +23,7 @@ AURUTILS_DIR="/tmp/aurutils"
 git clone https://aur.archlinux.org/aurutils.git "$AURUTILS_DIR"
 chmod go+w "$AURUTILS_DIR" # So we can create .SRCINFO files as the rock user.
 cd "$AURUTILS_DIR"
+git checkout f2a4865bd7823df0a2faea3fa3fb6619874f7eb7
 
 # Install dependencies ourselves because we won't be able to elevate ourselves
 # via sudo when we `makepkg`.
