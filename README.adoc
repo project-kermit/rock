@@ -5,6 +5,15 @@
 AWS_PROFILE=<profile> make
 ----
 
+It is also possible to specify an optional source image and aws region in which it can be found.
+
+[source]
+----
+AWS_PROFILE=<profile> SOURCE_AMI=ami-0ec281b78fe38faa8 AWS_REGION=eu-west-2 make
+----
+
+The base image that we use to build our arch linux AMI can be found https://www.uplinklabs.net/projects/arch-linux-on-ec2/[here].
+
 == Copyright & License
 
 The MIT License (MIT)
