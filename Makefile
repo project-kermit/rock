@@ -1,10 +1,14 @@
 .PHONY: all debug
 
 COMMIT_REF=$(shell git rev-parse --short HEAD)
+SOURCE_AMI?="ami-054280c303cf1a3e1"
+AWS_REGION?="eu-west-1"
 
 all: 	clean
 	packer-io build \
 		-var "commit_ref=$(COMMIT_REF)" \
+		-var "source_ami=$(SOURCE_AMI)" \
+		-var "aws_region=$(AWS_REGION)" \
 		rock.json
 
 # We need to clean up any build artefacts in the package directories because
@@ -16,6 +20,8 @@ clean:
 debug:
 	packer-io build -debug \
 		-var "commit_ref=$(COMMIT_REF)" \
+		-var "source_ami=$(SOURCE_AMI)" \
+		-var "aws_region=$(AWS_REGION)" \
 		rock.json
 
 test:
