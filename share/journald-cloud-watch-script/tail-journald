@@ -12,7 +12,7 @@ JOURNAL_CURSOR_FILE="/var/lib/journald-cloud-watch-script/journal-cursor"
 
 mkdir -p "/var/lib/journald-cloud-watch-script"
 
-BATCH_SIZE=50
+BATCH_SIZE="${LOG_BATCH_SIZE:-50}"
 
 fetch_current_cursor () {
     aws logs describe-log-streams \
@@ -38,15 +38,20 @@ create_or_get_current_cursor () {
 journal_cursor_rows () {
     if [[ $(cat $JOURNAL_CURSOR_FILE) ]]; then
         rows=$(journalctl -a -n $BATCH_SIZE -o json \
+            --no-pager \
             --after-cursor "$(cat $JOURNAL_CURSOR_FILE)")
     else
-        rows=$(journalctl -a -n $BATCH_SIZE -o json)
+        rows=$(journalctl -a -n $BATCH_SIZE -o json --no-pager)
     fi
-    cursor=$(echo $rows | jq -s -r ". | .[-1].__CURSOR // empty")
-    if [[ $cursor ]]; then
-        echo $cursor > $JOURNAL_CURSOR_FILE
+    
+    num_rows=$(echo "$rows" | wc -l)
+    if [[ $num_rows -ge $BATCH_SIZE ]]; then
+        cursor=$(echo $rows | jq -s -r ". | .[-1].__CURSOR // empty")
+        if [[ $cursor ]]; then
+            echo $cursor > $JOURNAL_CURSOR_FILE
+        fi
+        echo $rows
     fi
-    echo $rows
 }
 
 format_row () {
