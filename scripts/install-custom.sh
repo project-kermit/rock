@@ -86,7 +86,6 @@ build_pkgs
 install_pkgs \
     codedeploy-agent \
     journald-cloud-watch-script \
-    systemd-cloud-watch \
     aws-cfn-bootstrap
 
 # To install any packages from the AUR can now be done like so:
