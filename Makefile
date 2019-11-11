@@ -1,7 +1,7 @@
 .PHONY: all debug
 
 COMMIT_REF=$(shell git rev-parse --short HEAD)
-SOURCE_AMI?="ami-054280c303cf1a3e1"
+SOURCE_AMI?="ami-0fe3aa754e63706e7"
 AWS_REGION?="eu-west-1"
 
 all: 	clean
