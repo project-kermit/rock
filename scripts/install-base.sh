@@ -37,6 +37,7 @@ useradd \
 pacman --noconfirm -Sy archlinux-keyring
 
 pacman --noconfirm -Syu \
+    inetutils \
     aws-cli \
     git \
     termite-terminfo \
